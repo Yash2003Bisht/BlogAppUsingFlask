@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block body %}
+<header class="masthead" style="background-image: url('{{url_for('static', filename = 'assets/img/home-bg.jpg')}}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>{{user["credential"].name}}</h1>
+                    <span class="subheading">Number of blog: {{user["posts"]|length}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert my-3 mx-3 alert-{{category}} alert-dismissible fade show">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+</div>
+<div class="container my-5">
+    <table class="table tabel-striped">
+        <thead>
+          <tr>
+            <th scope="col">Sno</th>
+            <th scope="col">Title</th>
+            <th scope="col">Blog link</th>
+            <th scope="col">Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in range(user["posts"]|length) %}
+          <tr>
+            <th scope="row">{{data + 1}}</th>
+            {% if user["posts"][data].title | length > 20 %}
+            <td>{{user["posts"][data].title[:20]}}...</td>
+            {% else %}
+            <td>{{user["posts"][data].title}}</td>
+            {% endif %}
+            <td>
+                <a href="/post/{{user["posts"][data].id}}"><button class="btn btn-primary btn-l">View</button></a>
+            </td>
+            <td>
+                <a href="/delete/{{user["posts"][data].id}}"><button class="btn btn-primary btn-l">Delete</button></a>
+                <a href="/update/{{user["posts"][data].id}}"><button class="btn btn-primary btn-l">Update</button></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<!-- Main Content-->
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>Want to get in touch? Send a message</p>
+                <div class="my-5">
+                    <form id="contactForm" method="post" action="/user">
+                        <div class="form-floating">
+                            <input required class="form-control" id="phone" name="phone" type="tel" placeholder="Enter your phone number..." data-sb-validations="required" />
+                            <label for="phone">Phone Number</label>
+                            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                        </div>
+                        <div class="form-floating">
+                            <textarea required class="form-control" id="message" name="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
+                            <label for="message">Message</label>
+                            <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                        </div>
+                        <br />
+                        <!-- Submit Button-->
+                        <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock body %}

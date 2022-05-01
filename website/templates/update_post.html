@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<header class="masthead" style="background-image: url('{{url_for('static', filename = 'assets/img/Post.png')}}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h2>Update a blog</h2>
+                    <span class="subheading">Number of blog: {{user["posts"]|length}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container my-5">
+ <form action="/update/{{user_posts.id}}" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <textarea class="form-control" required id="title" name="title" rows="2">{{user_posts.title}}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="sub_title" class="form-label">Sub-title</label>
+        <textarea class="form-control" required id="sub_title" name="sub_title" rows="3">{{user_posts.sub_title}}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" required id="content" name="content" rows="30">
+            {{user_posts.content}}
+        </textarea>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+ </form>
+</div>
+{% endblock body %}

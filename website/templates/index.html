@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('{{url_for('static', filename = 'assets/img/home-bg.jpg')}}')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Clean Blog</h1>
+                            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                {% if post_details|length < 1 %}
+                    <h3>
+                        No blog yet. Add a <a href="/new">Blog?</a>
+                    </h3>
+                {% else %}
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    {% for data in post_details %}
+                    <div class="post-preview">
+                        <a href="/post/{{data.id}}">
+                            {% if data.title|length > 50 %}
+                                <h2 class="post-title">{{data.title[:50]}}...</h2>
+                            {% else %}
+                                <h2 class="post-title">{{data.title}}</h2>
+                            {% endif %}
+                            {% if data.sub_title|length > 120 %}
+                                <h3 class="post-subtitle">{{data.sub_title[:120]}}...</h3>
+                            {% else %}
+                                <h3 class="post-subtitle">{{data.sub_title}}</h3>
+                            {% endif %}
+                        </a>
+                        <p class="post-meta">
+                            Posted by
+                                {% for name in user_names %}
+                                    {% if name.id == data.refrence_key %}
+                                        {% if current_user.id == name.id %}
+                                            <a href="/user">{{name.name}}</a>
+                                        {% else %}
+                                            <a href="/user-profile/{{name.id}}">{{name.name}}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {{data.date_created}}
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    {% endfor %}
+                    <!-- Pager-->
+                    {% if post_details|length > 0 %}
+                    <div class="d-flex mb-4">
+                        {% if user["posts"]|length < 1 %}
+                            <h3>
+                                It looks like you haven't added a blog. Add a <a href="/new">Blog?</a>
+                            </h3>
+                        {% else %}
+                            <a class="btn btn-primary mx-5 text-uppercase" href="{{previous}}"> <- Newer Posts</a>
+                            <a class="btn btn-primary mx-5 text-uppercase" href="{{next}}">Older Posts -> </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+{% endblock body %}

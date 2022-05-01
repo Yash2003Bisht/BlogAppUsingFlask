@@ -1,0 +1,24 @@
+{% extends 'auth_layout.html' %}
+{% block title %}Signup{% endblock title %}
+{% block body %}
+
+      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+      <br>
+      <label for="name" class="sr-only">Name</label>
+      <input type="text" id="name" name="name" class="form-control my-2" placeholder="Name" required autofocus>
+      <label for="email" class="sr-only">Email address</label>
+      <input type="email" id="email" name="email" class="form-control my-2" placeholder="Email address" required autofocus>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" id="password" name="password" class="form-control my-2" placeholder="Password" required>
+      <label for="confirmpassword" class="sr-only">Confirm Password</label>
+      <input type="password" id="confirmpassword" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
+      <div class="container">
+        <label>
+          <a href="/login"> Already have a account? </a>
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign UP</button>
+      <p class="mt-5 mb-3 text-muted"> &copy; 2022-2023</p>
+
+  {% endblock body %}

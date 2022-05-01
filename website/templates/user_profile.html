@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block body %}
+<header class="masthead" style="background-image: url('{{url_for('static', filename = 'assets/img/home-bg.jpg')}}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>{{user_profile.name}}</h1>
+                    <span class="subheading">Number of blog: {{user_posts|length}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container my-5">
+    <table class="table tabel-striped">
+        <thead>
+          <tr>
+            <th scope="col">Sno</th>
+            <th scope="col">Title</th>
+            <th scope="col">Blog link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in range(user_posts|length) %}
+          <tr>
+            <th scope="row">{{data + 1}}</th>
+            {% if user_posts[data].title | length > 20 %}
+            <td>{{user_posts[data].title[:20]}}...</td>
+            {% else %}
+            <td>{{user_posts[data].title}}</td>
+            {% endif %}
+            <td>
+                <a href="/post/{{user_posts[data].id}}"><button class="btn btn-primary btn-l">View</button></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock body %}
