@@ -12,13 +12,14 @@ def loadUserData():
     global user_data
     user_data.update({"credential": UserData.query.filter_by(id=current_user.id).first(), "posts": UserPosts.query.filter_by(refrence_key=current_user.id).all()})
 
+# Enable less secure apps
 def send_mail(user, body=None):
     app.config.update(
         MAIL_SERVER = "smtp.gmail.com",
         MAIL_USE_SSL = True,
         MAIL_PORT = "465",
-        MAIL_USERNAME = "faltuhello1234@gmail.com",
-        MAIL_PASSWORD = "Faltu@hello123"
+        MAIL_USERNAME = "Enter Your Email",
+        MAIL_PASSWORD = "Enter Your Password"
     )
     mail = Mail(app)
     if body is None:
