@@ -32,9 +32,9 @@ def send_mail(user, body=None):
             This link valid for next 15 minutes
             """,
             recipients = [user.email],
-            sender = "faltuhello1234@gmail.com"
+            sender = "Enter Your Email"
         )
     else:
-        mail.send_message(f"User Send Message {user}", body=body, sender=user, recipients = ["faltuhello1234@gmail.com"])
+        mail.send_message(f"User Send Message {user}", body=body, sender=user, recipients = ["Enter Your Email"])
 
 
