@@ -1,5 +1,4 @@
-from nis import cat
-from flask import Blueprint, flash, render_template, request, redirect, url_for
+from flask import Blueprint, flash, render_template, request, redirect, url_for, session
 from website.helper_functions import send_mail
 from website.models import UserData
 import re
@@ -91,7 +90,7 @@ def reset_password(token):
                 return redirect(url_for("auth.login"))
         return render_template("add_new_password.html")
 
-@auth.route("/logout")
+@auth.route("/logout", methods=["GET"])
 @login_required
 def logout():
     logout_user()
